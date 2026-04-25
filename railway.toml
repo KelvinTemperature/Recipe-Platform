@@ -2,5 +2,5 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "gunicorn recipe_platform.wsgi:application --bind 0.0.0.0:$PORT"
+startCommand = "sh -c 'gunicorn recipe_platform.wsgi:application --bind 0.0.0.0:$PORT'"
 restartPolicyType = "on_failure"
