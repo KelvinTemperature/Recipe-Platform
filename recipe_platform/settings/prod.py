@@ -1,39 +1,40 @@
 from .base import *
 import os
+import dj_database_url
 
 DEBUG = False
 
-ALLOWED_HOSTS = config(
-    'ALLOWED_HOSTS',
-    cast=lambda v: [s.strip() for s in v.split(',')]
-)
+ALLOWED_HOSTS = [
+    'recipe-platform-production-f8c7.up.railway.app',
+    'localhost',
+    '127.0.0.1',
+]
 
-# Use DATABASE_URL if available (Railway provides this)
+# Database
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
-    import dj_database_url
     DATABASES = {
         'default': dj_database_url.parse(DATABASE_URL)
     }
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME':     config('DB_NAME'),
-            'USER':     config('DB_USER'),
+            'ENGINE'  : 'django.db.backends.postgresql',
+            'NAME'    : config('DB_NAME'),
+            'USER'    : config('DB_USER'),
             'PASSWORD': config('DB_PASSWORD'),
-            'HOST':     config('DB_HOST'),
-            'PORT':     config('DB_PORT', default='5432'),
+            'HOST'    : config('DB_HOST'),
+            'PORT'    : config('DB_PORT', default='5432'),
         }
     }
 
-CORS_ALLOWED_ORIGINS = config(
-    'CORS_ALLOWED_ORIGINS',
-    cast=lambda v: [s.strip() for s in v.split(',')]
-)
+CORS_ALLOWED_ORIGINS = [
+    'https://recipe-platform-production-f8c7.up.railway.app',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-
 STATIC_ROOT = BASE_DIR / 'staticfiles'
