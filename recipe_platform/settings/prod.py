@@ -1,4 +1,5 @@
 from .base import *
+import os
 
 DEBUG = False
 
@@ -7,16 +8,25 @@ ALLOWED_HOSTS = config(
     cast=lambda v: [s.strip() for s in v.split(',')]
 )
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':     config('DB_NAME'),
-        'USER':     config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST':     config('DB_HOST'),
-        'PORT':     config('DB_PORT', default='5432'),
+# Use DATABASE_URL if available (Railway provides this)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL)
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME':     config('DB_NAME'),
+            'USER':     config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST':     config('DB_HOST'),
+            'PORT':     config('DB_PORT', default='5432'),
+        }
+    }
 
 CORS_ALLOWED_ORIGINS = config(
     'CORS_ALLOWED_ORIGINS',
