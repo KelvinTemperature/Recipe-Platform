@@ -3,6 +3,6 @@ builder = "nixpacks"
 
 [deploy]
 startCommand = "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:$PORT"
-healthcheckPath = "/admin/"
+healthcheckPath = "/"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
