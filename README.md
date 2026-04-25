@@ -37,7 +37,7 @@ The Recipe Platform allows:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/recipe-platform.git
+git clone https://github.com/KelvinTemperature/recipe-platform.git
 cd recipe-platform
 ```
 
