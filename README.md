@@ -259,7 +259,7 @@ recipe-platform/
 
 This project is deployed on **Railway**.
 
-Live URL: `https://your-app.railway.app`
+Live URL: `https://recipe-platform-production-f8c7.up.railway.app/`
 
 ---
 
