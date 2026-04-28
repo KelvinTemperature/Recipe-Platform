@@ -214,7 +214,7 @@ class CreatorDashboardView(APIView):
             avg_rating     = Avg('ratings__score'),
             bookmark_count = Count('bookmarks'),
         ).values(
-            'id', 'title', 'image' 'is_public', 'view_count',
+            'id', 'title', 'image', 'is_public', 'view_count',
             'avg_rating', 'bookmark_count', 'created_at',
         )
 
