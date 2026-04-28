@@ -32,7 +32,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
 class RecipeListSerializer(serializers.ModelSerializer):
     """Lightweight serializer for list views — no nested steps/ingredients"""
-    author     = serializers.StringRelatedField(read_only=True)
+    author     = serializers.CharField(source='author.username', read_only=True)
     tags       = TagSerializer(many=True, read_only=True)
     avg_rating = serializers.SerializerMethodField()
     bookmark_count = serializers.SerializerMethodField()
