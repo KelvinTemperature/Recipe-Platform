@@ -11,7 +11,6 @@ ALLOWED_HOSTS = [
 ]
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
-
 if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.parse(DATABASE_URL)
@@ -31,13 +30,16 @@ else:
 CORS_ALLOWED_ORIGINS = [
     'https://recipe-platform-production-f8c7.up.railway.app',
 ]
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = [
     'https://recipe-platform-production-f8c7.up.railway.app',
 ]
 
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
+# ── Static files with WhiteNoise ──
+STATIC_URL  = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SECURE_BROWSER_XSS_FILTER  = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
