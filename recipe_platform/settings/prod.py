@@ -1,6 +1,9 @@
 from .base import *
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 DEBUG = False
 
@@ -36,10 +39,27 @@ CSRF_TRUSTED_ORIGINS = [
     'https://recipe-platform-production-f8c7.up.railway.app',
 ]
 
-# ── Static files with WhiteNoise ──
+# ── Static files ──
 STATIC_URL  = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ── Cloudinary for media files ──
+cloudinary.config(
+    cloud_name = config('CLOUDINARY_CLOUD_NAME', default=''),
+    api_key    = config('CLOUDINARY_API_KEY',    default=''),
+    api_secret = config('CLOUDINARY_API_SECRET', default=''),
+    secure     = True,
+)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME' : config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY'    : config('CLOUDINARY_API_KEY',    default=''),
+    'API_SECRET' : config('CLOUDINARY_API_SECRET', default=''),
+}
+
+# ← This is the critical line
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 SECURE_BROWSER_XSS_FILTER  = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
