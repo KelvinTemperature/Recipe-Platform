@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+import cloudinary
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -19,6 +20,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'cloudinary',                
+    'cloudinary_storage',            
 
     # Local
     'accounts',
@@ -174,3 +177,13 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+# Cloudinary config
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME' : config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY'    : config('CLOUDINARY_API_KEY'),
+    'API_SECRET' : config('CLOUDINARY_API_SECRET'),
+}
+
+# Tell Django to use Cloudinary for media files
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
