@@ -67,5 +67,9 @@ STORAGES = {
     },
 }
 
+# ── Fallback for older packages that check these directly ──
+DEFAULT_FILE_STORAGE  = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE   = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 SECURE_BROWSER_XSS_FILTER  = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
