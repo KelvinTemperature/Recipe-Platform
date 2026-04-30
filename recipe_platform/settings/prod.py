@@ -42,7 +42,6 @@ CSRF_TRUSTED_ORIGINS = [
 # ── Static files ──
 STATIC_URL  = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ── Cloudinary for media files ──
 cloudinary.config(
@@ -58,8 +57,15 @@ CLOUDINARY_STORAGE = {
     'API_SECRET' : config('CLOUDINARY_API_SECRET', default=''),
 }
 
-# ← This is the critical line
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 SECURE_BROWSER_XSS_FILTER  = True
 SECURE_CONTENT_TYPE_NOSNIFF = True

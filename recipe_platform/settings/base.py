@@ -195,6 +195,3 @@ CLOUDINARY_STORAGE = {
     'API_KEY'    : config('CLOUDINARY_API_KEY', default=''),
     'API_SECRET' : config('CLOUDINARY_API_SECRET', default=''),
 }
-
-# Tell Django to use Cloudinary for media files
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
