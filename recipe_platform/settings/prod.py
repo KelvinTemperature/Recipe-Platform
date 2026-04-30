@@ -63,13 +63,13 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }
 
 # ── Fallback for older packages that check these directly ──
 DEFAULT_FILE_STORAGE  = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-STATICFILES_STORAGE   = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE   = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 SECURE_BROWSER_XSS_FILTER  = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
