@@ -58,14 +58,11 @@ CLOUDINARY_STORAGE = {
 }
 
 
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+# ── Media files (Cloudinary) ──
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# ── Static files (WhiteNoise) ──
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SECURE_BROWSER_XSS_FILTER  = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
