@@ -213,15 +213,26 @@ class CreatorDashboardView(APIView):
         recipes = Recipe.objects.filter(author=request.user).annotate(
             avg_rating     = Avg('ratings__score'),
             bookmark_count = Count('bookmarks'),
-        ).values(
-            'id', 'title', 'image', 'is_public', 'view_count',
-            'avg_rating', 'bookmark_count', 'created_at',
         )
 
+        # Build recipe list manually to get proper image URLs
+        recipes_data = []
+        for recipe in recipes:
+            recipes_data.append({
+                'id'             : recipe.id,
+                'title'          : recipe.title,
+                'image'          : request.build_absolute_uri(recipe.image.url) if recipe.image else None,
+                'is_public'      : recipe.is_public,
+                'view_count'     : recipe.view_count,
+                'avg_rating'     : recipe.avg_rating,
+                'bookmark_count' : recipe.bookmark_count,
+                'created_at'     : recipe.created_at,
+            })
+
         summary = {
-            'total_recipes'    : Recipe.objects.filter(author=request.user).count(),
-            'total_views'      : sum(r['view_count'] for r in recipes),
-            'total_bookmarks'  : sum(r['bookmark_count'] or 0 for r in recipes),
-            'recipes'          : list(recipes),
+            'total_recipes'   : recipes.count(),
+            'total_views'     : sum(r['view_count'] for r in recipes_data),
+            'total_bookmarks' : sum(r['bookmark_count'] or 0 for r in recipes_data),
+            'recipes'         : recipes_data,
         }
         return Response(summary)
